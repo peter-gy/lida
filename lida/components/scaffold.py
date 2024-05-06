@@ -113,12 +113,13 @@ chart = plot(data) # variable data already contains the data to be plotted and s
                 """
 import pandas as pd
 import folium
+from typing import Callable
 
 def plot(data: pd.DataFrame):
     today: pd.Timestamp = pd.Timestamp.today()
-    # Ensure date fields are in the right format
-    # Ensure all N/A longitudes and latitudes are removed
-    <stub> # only modify this section
+    # Ensure date fields are in the right format by converting them to datetime via pd.to_datetime(data[<field>], errors='coerce')
+    # Ensure all N/A longitudes and latitudes are removed by data.dropna(subset=...)
+    should_include_data_point: Callable[[pd.Series], bool] = lambda row: <stub> # only modify this section
     return map
 chart = plot(data) # data already contains the data to be plotted. Always include this line. No additional code beyond this line.
 """
