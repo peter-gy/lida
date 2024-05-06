@@ -195,6 +195,7 @@ class ChartExecutorResponse:
     code: str  # code used to generate the visualization
     library: str  # library used to generate the visualization
     error: Optional[Dict] = None  # error message if status is False
+    html: Optional[str] = None  # html representation of the visualization
 
     def _repr_mimebundle_(self, include=None, exclude=None):
         bundle = {"text/plain": self.code}
@@ -202,6 +203,8 @@ class ChartExecutorResponse:
             bundle["image/png"] = self.raster
         if self.spec is not None:
             bundle["application/vnd.vegalite.v5+json"] = self.spec
+        if self.html is not None:
+            bundle["text/html"] = self.html
 
         return bundle
 
