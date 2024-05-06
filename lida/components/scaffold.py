@@ -107,16 +107,18 @@ chart = plot(data) # variable data already contains the data to be plotted and s
         elif library == "folium":
             instructions = {
                 "role": "system",
-                "content": f"{general_instructions}. The plot method must return a folium object (map)`. Think step by step. Whenever possible, display reasonable additional details on the map (e.g., markers, popups, etc.). \n",
+                "content": f"{general_instructions}. The plot method must return a folium object (map)`. Prefer simplicity and clarity. If the user specifies a region or date span, ensure that only the relevant datapoints are included, the rest is filtered. WHENEVER POSSIBLE DISPLAY MARKERS WITH MEANINGFUL ADDITIONAL COLUMNS OF THE DATA. MAKE IT CLEAR WHAT EACH MARKER MARKS (notion of departure-arrival for example). Never use folium plugins. When using a <field> where semantic_type=date remember the original instructions. Think step by step.\n",
             }
             template = \
                 """
 import pandas as pd
 import folium
-<imports>
+
 def plot(data: pd.DataFrame):
-    data = data.copy().dropna()
-    map = <stub> # only modify this section
+    today: pd.Timestamp = pd.Timestamp.today()
+    # Ensure date fields are in the right format
+    # Ensure all N/A longitudes and latitudes are removed
+    <stub> # only modify this section
     return map
 chart = plot(data) # data already contains the data to be plotted. Always include this line. No additional code beyond this line.
 """

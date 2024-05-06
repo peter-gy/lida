@@ -276,6 +276,42 @@ class ChartExecutor:
                         )
             return charts
 
+        elif library == "folium":
+            for code in code_specs:
+                try:
+                    ex_locals = get_globals_dict(code, data)
+                    exec(code, ex_locals)
+                    chart = ex_locals["chart"]
+
+                    charts.append(
+                        ChartExecutorResponse(
+                            spec=None,
+                            status=True,
+                            raster=None,
+                            code=code,
+                            library=library,
+                            html=chart._repr_html_()
+                        )
+                    )
+                except Exception as exception_error:
+                    print(code)
+                    print(traceback.format_exc())
+                    if return_error:
+                        charts.append(
+                            ChartExecutorResponse(
+                                spec=None,
+                                status=False,
+                                raster=None,
+                                code=code,
+                                library=library,
+                                error={
+                                    "message": str(exception_error),
+                                    "traceback": traceback.format_exc(),
+                                },
+                            )
+                        )
+            return charts
+
         else:
             raise Exception(
                 f"Unsupported library. Supported libraries are altair, matplotlib, seaborn, ggplot, plotly. You provided {library}"
