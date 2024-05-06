@@ -104,10 +104,24 @@ def plot(data: pd.DataFrame):
     return chart
 chart = plot(data) # variable data already contains the data to be plotted and should not be loaded again.  Always include this line. No additional code beyond this line..
 """
+        elif library == "folium":
+            instructions = {
+                "role": "system",
+                "content": f"{general_instructions}. The plot method must return a folium object (map)`. Think step by step. Whenever possible, display reasonable additional details on the map (e.g., markers, popups, etc.). \n",
+            }
+            template = \
+                """
+import folium
+<imports>
+def plot(data: pd.DataFrame):
+    map = <stub> # only modify this section
+    return map
+chart = plot(data) # data already contains the data to be plotted. Always include this line. No additional code beyond this line.
+"""
 
         else:
             raise ValueError(
-                "Unsupported library. Choose from 'matplotlib', 'seaborn', 'plotly', 'bokeh', 'ggplot', 'altair'."
+                "Unsupported library. Choose from 'matplotlib', 'seaborn', 'plotly', 'bokeh', 'ggplot', 'altair', 'folium'"
             )
 
         return template, instructions
