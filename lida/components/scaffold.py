@@ -1,5 +1,3 @@
-from dataclasses import asdict
-
 from lida.datamodel import Goal
 
 
