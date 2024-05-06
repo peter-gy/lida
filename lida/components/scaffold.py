@@ -111,9 +111,11 @@ chart = plot(data) # variable data already contains the data to be plotted and s
             }
             template = \
                 """
+import pandas as pd
 import folium
 <imports>
 def plot(data: pd.DataFrame):
+    data = data.copy().dropna()
     map = <stub> # only modify this section
     return map
 chart = plot(data) # data already contains the data to be plotted. Always include this line. No additional code beyond this line.
