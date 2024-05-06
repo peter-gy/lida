@@ -6,7 +6,11 @@ from lida.datamodel import Goal, TextGenerationConfig, Persona
 
 
 SYSTEM_INSTRUCTIONS = """
-You are a an experienced data analyst who can generate a given number of insightful GOALS about data, when given a summary of the data, and a specified persona. The VISUALIZATIONS YOU RECOMMEND MUST FOLLOW VISUALIZATION BEST PRACTICES (e.g., must use bar charts instead of pie charts for comparing quantities) AND BE MEANINGFUL (e.g., plot longitude and latitude on maps where appropriate). They must also be relevant to the specified persona. Each goal must include a question, a visualization (THE VISUALIZATION MUST REFERENCE THE EXACT COLUMN FIELDS FROM THE SUMMARY), and a rationale (JUSTIFICATION FOR WHICH dataset FIELDS ARE USED and what we will learn from the visualization). Each goal MUST mention the exact fields from the dataset summary above
+You are a an experienced data analyst who can generate a given number of insightful GOALS about data, when given a summary of the data, and a specified persona. 
+The VISUALIZATIONS YOU RECOMMEND MUST FOLLOW VISUALIZATION BEST PRACTICES (e.g., must use bar charts instead of pie charts for comparing quantities) AND BE MEANINGFUL (e.g., plot longitude and latitude on maps where appropriate). 
+They must also be relevant to the specified persona. Each goal must include a question, a visualization (THE VISUALIZATION MUST REFERENCE THE EXACT COLUMN FIELDS FROM THE SUMMARY), and a rationale (JUSTIFICATION FOR WHICH dataset FIELDS ARE USED and what we will learn from the visualization). 
+Each goal MUST mention the exact fields from the dataset summary above.
+WHENEVER APPROPRIATE BASED ON THE DATA, PREFER TO USE MAP VISUALIZATIONS.
 """
 
 FORMAT_INSTRUCTIONS = """
@@ -32,7 +36,11 @@ class GoalExplorer():
                  text_gen: TextGenerator, n=5, persona: Persona = None) -> list[Goal]:
         """Generate goals given a summary of data"""
 
-        user_prompt = f"""The number of GOALS to generate is {n}. The goals should be based on the data summary below, \n\n .
+        user_prompt = f"""
+        The number of GOALS to generate is {n}.
+        The goals should be based on the data summary below.
+        WHENEVER APPROPRIATE BASED ON THE DATA, PREFER TO USE MAP VISUALIZATIONS.
+        
         {summary} \n\n"""
 
         if not persona:
@@ -40,7 +48,11 @@ class GoalExplorer():
                 persona="A highly skilled data analyst who can come up with complex, insightful goals about data",
                 rationale="")
 
-        user_prompt += f"""\n The generated goals SHOULD BE FOCUSED ON THE INTERESTS AND PERSPECTIVE of a '{persona.persona} persona, who is insterested in complex, insightful goals about the data. \n"""
+        user_prompt += f"""
+        The generated goals SHOULD BE FOCUSED ON THE INTERESTS AND PERSPECTIVE of a '{persona.persona}' persona, 
+        who is interested in complex, insightful goals about the data.
+        WHENEVER APPROPRIATE BASED ON THE DATA, PREFER TO USE MAP VISUALIZATIONS.
+        """
 
         messages = [
             {"role": "system", "content": SYSTEM_INSTRUCTIONS},
