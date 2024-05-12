@@ -294,8 +294,8 @@ class ChartExecutor:
                         )
                     )
                 except Exception as exception_error:
-                    print(code)
-                    print(traceback.format_exc())
+                    #print(code)
+                    #print(traceback.format_exc())
                     if return_error:
                         charts.append(
                             ChartExecutorResponse(
