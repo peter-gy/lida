@@ -107,7 +107,7 @@ chart = plot(data) # variable data already contains the data to be plotted and s
         elif library == "folium":
             instructions = {
                 "role": "system",
-                "content": f"{general_instructions}. The plot method must return a folium object (map)`. Prefer simplicity and clarity. If the user specifies a region or date span, ensure that only the relevant datapoints are included, the rest is filtered. WHENEVER POSSIBLE DISPLAY MARKERS WITH MEANINGFUL ADDITIONAL COLUMNS OF THE DATA. MAKE IT CLEAR WHAT EACH MARKER MARKS (notion of departure-arrival for example). Never use folium plugins. When using a <field> where semantic_type=date remember the original instructions. Think step by step.\n",
+                "content": f"{general_instructions}. The plot method must return a folium object (map)`. Prefer simplicity and clarity. If the user specifies a region or date span, ensure that only the relevant datapoints are included, the rest is filtered. WHENEVER POSSIBLE DISPLAY MARKERS WITH MEANINGFUL ADDITIONAL COLUMNS OF THE DATA. MAKE IT CLEAR WHAT EACH MARKER MARKS (notion of departure-arrival for example). ALWAYS SET MAP INITIAL COORDINATES TO HAVE MARKERS IN VIEW BY DEFAULT. Never use folium plugins. When using a <field> where semantic_type=date remember the original instructions. Think step by step.\n",
             }
             template = \
                 """
