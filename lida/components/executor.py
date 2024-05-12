@@ -247,6 +247,7 @@ class ChartExecutor:
                     if pio:
                         chart_bytes = pio.to_image(chart, 'png')
                         plot_data = base64.b64encode(chart_bytes).decode('utf-8')
+                        chart_html = pio.to_html(chart, full_html=True)
 
                         charts.append(
                             ChartExecutorResponse(
@@ -255,6 +256,7 @@ class ChartExecutor:
                                 raster=plot_data,
                                 code=code,
                                 library=library,
+                                html=chart_html
                             )
                         )
                 except Exception as exception_error:
